@@ -13,6 +13,7 @@
 		566092542692A541009A6EF0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 566092532692A541009A6EF0 /* Preview Assets.xcassets */; };
 		5660925F2692A541009A6EF0 /* CorollariiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660925E2692A541009A6EF0 /* CorollariiTests.swift */; };
 		5660926A2692A541009A6EF0 /* CorollariiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566092692692A541009A6EF0 /* CorollariiUITests.swift */; };
+		5687CBEE2693D57A00D2D287 /* CorollariiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5687CBED2693D57A00D2D287 /* CorollariiManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		566092652692A541009A6EF0 /* CorollariiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorollariiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		566092692692A541009A6EF0 /* CorollariiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorollariiUITests.swift; sourceTree = "<group>"; };
 		5660926B2692A541009A6EF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5687CBED2693D57A00D2D287 /* CorollariiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorollariiManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				5660924C2692A53E009A6EF0 /* CorollariiApp.swift */,
 				5660924E2692A53E009A6EF0 /* ContentView.swift */,
+				5687CBED2693D57A00D2D287 /* CorollariiManager.swift */,
 				566092502692A541009A6EF0 /* Assets.xcassets */,
 				566092552692A541009A6EF0 /* Info.plist */,
 				566092522692A541009A6EF0 /* Preview Content */,
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5687CBEE2693D57A00D2D287 /* CorollariiManager.swift in Sources */,
 				5660924F2692A53E009A6EF0 /* ContentView.swift in Sources */,
 				5660924D2692A53E009A6EF0 /* CorollariiApp.swift in Sources */,
 			);
