@@ -34,8 +34,11 @@ class CorollariiManager: ObservableObject {
             case 1:
                 break
             default:
-                if amount.first == "0" {
+                if amount.first == "0" && amount.starts(with: "0.") == false {
                     amount = String(amount.dropFirst())
+                }
+                if let first = (amount.firstIndex(of: ".")), let second = amount.lastIndex(of: ".") {
+                    if first != second { amount.remove(at: second) }
                 }
             }
 
