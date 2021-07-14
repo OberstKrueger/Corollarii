@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 
 struct ContentView: View {
@@ -15,12 +16,21 @@ struct ContentView: View {
                     Toggle("Round Up", isOn: $manager.round)
                 }
                 Section {
-                    Text("Tip Amount: $\(manager.calculateTip().description)")
-                    Text("Total: $\(manager.calculateTotal().description)")
+                    Text("Tip Amount: \(formatCurrency(manager.calculateTip()))")
+                    Text("Total: \(formatCurrency(manager.calculateTotal()))")
                 }
             }
             .navigationTitle("Corollarii")
         }
+    }
+
+    func formatCurrency(_ value: Decimal) -> String {
+        let formatter = NumberFormatter()
+
+        formatter.numberStyle = .currency
+        formatter.usesGroupingSeparator = true
+
+        return formatter.string(from: value as NSDecimalNumber) ?? ""
     }
 }
 
