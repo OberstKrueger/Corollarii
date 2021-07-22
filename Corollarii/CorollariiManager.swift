@@ -5,7 +5,7 @@ import SwiftUI
 class CorollariiManager: ObservableObject {
     // MARK: - Internal Properties
     fileprivate var calculatedTip: Decimal {
-        if var calculated = Decimal(string: amount) {
+        if var calculated = Decimal(string: displayAmount) {
             var rounded = Decimal()
 
             calculated *= (Decimal(percentage) / 100)
@@ -18,7 +18,7 @@ class CorollariiManager: ObservableObject {
     }
 
     fileprivate var calculatedTotal: Decimal {
-        if let calculated = Decimal(string: amount) {
+        if let calculated = Decimal(string: displayAmount) {
             return calculated + calculatedTip
         } else {
             return .nan
@@ -26,29 +26,17 @@ class CorollariiManager: ObservableObject {
     }
 
     // MARK: - Public Properties
-    @Published var amount: String = "0" {
+    @Published var amount: [CalculatorCharacters] = [] {
         didSet {
-            switch amount.count {
-            case 0:
-                amount = "0"
-            case 1:
-                break
-            default:
-                if amount.first == "0" && amount.starts(with: "0.") == false {
-                    amount = String(amount.dropFirst())
-                }
-                if let first = (amount.firstIndex(of: ".")), let second = amount.lastIndex(of: ".") {
-                    if first != second { amount.remove(at: second) }
-                }
-            }
-
-            
+            displayAmount = amount.isEmpty ? "0.00" : amount.map({String($0.rawValue)}).joined()
         }
     }
 
     @Published var round: Bool = false
 
     @Published var percentage: UInt = 15
+
+    var displayAmount: String = "0.00"
 
     // MARK: - Public Methods
     func calculateTip() -> Decimal {
@@ -67,7 +55,7 @@ class CorollariiManager: ObservableObject {
 
     func calculateTotal() -> Decimal {
         if round {
-            if let calculated = Decimal(string: amount) {
+            if let calculated = Decimal(string: displayAmount) {
                 return calculated + calculateTip()
             } else {
                 return .nan
@@ -75,5 +63,23 @@ class CorollariiManager: ObservableObject {
         } else {
             return calculatedTotal
         }
+    }
+
+    func keypress(key: CalculatorCharacters) {
+        amount.append(key)
+    }
+
+    enum CalculatorCharacters: String {
+        case one     = "1"
+        case two     = "2"
+        case three   = "3"
+        case four    = "4"
+        case five    = "5"
+        case six     = "6"
+        case seven   = "7"
+        case eight   = "8"
+        case nine    = "9"
+        case zero    = "0"
+        case decimal = "."
     }
 }
