@@ -9,15 +9,15 @@ struct ContentView: View {
             VStack {
                 Form {
                     Section(header: Text("Bill Amount")) {
-                        Text("$\(manager.displayAmount)")
+                        Text("$\(manager.cash.totalDisplay)")
                     }
                     Section {
                         Stepper("Tip Percent: \(manager.percentage)", value: $manager.percentage)
                         Toggle("Round Up", isOn: $manager.round)
                     }
                     Section {
-                        Text("Tip Amount: \(formatCurrency(manager.calculateTip()))")
-                        Text("Total: \(formatCurrency(manager.calculateTotal()))")
+                        Text("Tip Amount: \(formatCurrency(manager.round ? manager.roundedTip : manager.calculatedTip))")
+                        Text("Total: \(formatCurrency(manager.round ? manager.roundedTotal : manager.calculatedTotal))")
                     }
                 }
                 VStack {
@@ -50,7 +50,7 @@ struct ContentView: View {
                             .padding()
                         Button("0") { manager.keypress(key: .zero) }
                             .padding()
-                        Button("⌫") {  }
+                        Button("⌫") { manager.remove() }
                             .padding()
                     }
                 }
