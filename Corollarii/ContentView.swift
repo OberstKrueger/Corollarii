@@ -21,38 +21,10 @@ struct ContentView: View {
                     }
                 }
                 VStack {
-                    HStack {
-                        Button("1") { manager.keypress(key: .one) }
-                            .padding()
-                        Button("2") { manager.keypress(key: .two) }
-                            .padding()
-                        Button("3") { manager.keypress(key: .three) }
-                            .padding()
-                    }
-                    HStack {
-                        Button("4") { manager.keypress(key: .four) }
-                            .padding()
-                        Button("5") { manager.keypress(key: .five) }
-                            .padding()
-                        Button("6") { manager.keypress(key: .six) }
-                            .padding()
-                    }
-                    HStack {
-                        Button("7") { manager.keypress(key: .seven) }
-                            .padding()
-                        Button("8") { manager.keypress(key: .eight) }
-                            .padding()
-                        Button("9") { manager.keypress(key: .nine) }
-                            .padding()
-                    }
-                    HStack {
-                        Button(".") { manager.keypress(key: .decimal) }
-                            .padding()
-                        Button("0") { manager.keypress(key: .zero) }
-                            .padding()
-                        Button("⌫") { manager.remove() }
-                            .padding()
-                    }
+                    ButtonRow(manager: manager, values: [.one, .two, .three])
+                    ButtonRow(manager: manager, values: [.four, .five, .six])
+                    ButtonRow(manager: manager, values: [.seven, .eight, .nine])
+                    ButtonRow(manager: manager, values: [.decimal, .zero, .backspace])
                 }
             }
             .navigationTitle("Corollarii")
@@ -66,6 +38,29 @@ struct ContentView: View {
         formatter.usesGroupingSeparator = true
 
         return formatter.string(from: value as NSDecimalNumber) ?? ""
+    }
+}
+
+struct ButtonRow: View {
+    let manager: CorollariiManager
+    let values: [CalculatorCharacters]
+
+    var body: some View {
+        HStack {
+            ForEach(values, id: \.self) { value in
+                ButtonView(manager: manager, value: value)
+            }
+        }
+    }
+}
+
+struct ButtonView: View {
+    let manager: CorollariiManager
+    let value: CalculatorCharacters
+
+    var body: some View {
+        Button(value.rawValue) { manager.keypress(key: value) }
+            .padding()
     }
 }
 
