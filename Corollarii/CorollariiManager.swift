@@ -48,9 +48,4 @@ class CorollariiManager: ObservableObject {
     func keypress(key: CalculatorCharacters) {
         cash.input(key: key)
     }
-
-    /// Remove the last input value.
-    func remove() {
-        cash.remove()
-    }
 }
