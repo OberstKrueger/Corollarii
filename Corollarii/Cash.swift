@@ -65,22 +65,20 @@ struct Cash {
                     dollars.append(key)
                 }
             }
+        case .backspace:
+            if decimal {
+                if cents.count > 0 {
+                    cents.removeLast()
+                } else {
+                    decimal = false
+                }
+            } else {
+                if dollars.count > 0 {
+                    dollars.removeLast()
+                }
+            }
         case .decimal:
             if decimal == false { decimal = true }
-        }
-    }
-
-    mutating func remove() {
-        if decimal {
-            if cents.count > 0 {
-                cents.removeLast()
-            } else {
-                decimal = false
-            }
-        } else {
-            if dollars.count > 0 {
-                dollars.removeLast()
-            }
         }
     }
 }
