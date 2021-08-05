@@ -26,6 +26,7 @@ struct ContentView: View {
                     ButtonRow(manager: manager, values: [.seven, .eight, .nine])
                     ButtonRow(manager: manager, values: [.decimal, .zero, .backspace])
                 }
+                .padding(.bottom, 8)
             }
             .navigationTitle("Corollarii")
         }
@@ -50,7 +51,7 @@ struct ButtonRow: View {
             ForEach(values, id: \.self) { value in
                 ButtonView(manager: manager, value: value)
             }
-        }
+        }.padding([.leading, .trailing])
     }
 }
 
@@ -59,8 +60,13 @@ struct ButtonView: View {
     let value: CalculatorCharacters
 
     var body: some View {
-        Button(value.rawValue) { manager.keypress(key: value) }
-            .padding()
+        Button(action: { manager.keypress(key: value) }, label: {
+            Color.clear
+                .frame(maxHeight: 45)
+                .overlay(RoundedRectangle(cornerRadius: 12)
+                            .stroke())
+                .overlay(Text(value.rawValue))
+        })
     }
 }
 
