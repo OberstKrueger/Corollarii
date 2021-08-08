@@ -3,15 +3,39 @@ import SwiftUI
 
 /// Manager object.
 class CorollariiManager: ObservableObject {
+    // MARK: - Initializations
+    init() {
+        percentage = defaults.percentage
+        round = defaults.round
+    }
+
+    // MARK: - Internal Properties
+    fileprivate let defaults = Defaults()
+
     // MARK: - Public Properties
     /// Cash value from user input.
     @Published var cash = Cash()
 
-    /// User toggleable rounding of the total.
-    @Published var round: Bool = false
-
     /// Tip percentage.
-    @Published var percentage: UInt = 15
+    @Published var percentage: Int {
+        didSet {
+            switch percentage {
+            case ...0:
+                percentage = 1
+            case 1...100:
+                break
+            default:
+                percentage = 100
+            }
+
+            defaults.percentage = percentage
+        }
+    }
+
+    /// User toggleable rounding of the total.
+    @Published var round: Bool {
+        didSet { defaults.round = round }
+    }
 
     /// Tip calculated based on current percentage.
     var calculatedTip: Decimal {
