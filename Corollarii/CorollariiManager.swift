@@ -18,18 +18,7 @@ class CorollariiManager: ObservableObject {
 
     /// Tip percentage.
     @Published var percentage: Int {
-        didSet {
-            switch percentage {
-            case ...0:
-                percentage = 1
-            case 1...100:
-                break
-            default:
-                percentage = 100
-            }
-
-            defaults.percentage = percentage
-        }
+        didSet { defaults.percentage = percentage }
     }
 
     /// User toggleable rounding of the total.
