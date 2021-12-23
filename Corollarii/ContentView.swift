@@ -62,10 +62,10 @@ struct ButtonView: View {
     var body: some View {
         Button(action: { cash.keypress(key: value) }, label: {
             Color.clear
-                .frame(maxHeight: 45)
-                .overlay(RoundedRectangle(cornerRadius: 12)
+                .frame(maxHeight: 44)
+                .overlay(RoundedRectangle(cornerRadius: 20)
                             .stroke())
-                .overlay(Text(value.rawValue))
+                .overlay(Text(value.rawValue).font(.headline))
         })
     }
 }
