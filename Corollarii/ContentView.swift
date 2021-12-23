@@ -2,29 +2,29 @@ import Foundation
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var manager = CorollariiManager()
+    @ObservedObject var cash = CashMachine()
 
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section(header: Text("Bill Amount")) {
-                        Text("$\(manager.cash.totalDisplay)")
+                        Text(cash.displayValue)
                     }
                     Section {
-                        Stepper("Tip Percent: \(manager.percentage)", value: $manager.percentage, in: 1...100)
-                        Toggle("Round Up", isOn: $manager.round)
+                        Stepper("Tip Percent: \(cash.percentage)", value: $cash.percentage, in: 1...100)
+                        Toggle("Round Up", isOn: $cash.round)
                     }
                     Section {
-                        Text("Tip Amount: \(formatCurrency(manager.round ? manager.roundedTip : manager.calculatedTip))")
-                        Text("Total: \(formatCurrency(manager.round ? manager.roundedTotal : manager.calculatedTotal))")
+                        Text("Tip Amount: \(formatCurrency(cash.round ? cash.roundedTip : cash.calculatedTip))")
+                        Text("Total: \(formatCurrency(cash.round ? cash.roundedTotal : cash.calculatedTotal))")
                     }
                 }
                 VStack {
-                    ButtonRow(manager: manager, values: [.one, .two, .three])
-                    ButtonRow(manager: manager, values: [.four, .five, .six])
-                    ButtonRow(manager: manager, values: [.seven, .eight, .nine])
-                    ButtonRow(manager: manager, values: [.decimal, .zero, .backspace])
+                    ButtonRow(cash: cash, values: [.one, .two, .three])
+                    ButtonRow(cash: cash, values: [.four, .five, .six])
+                    ButtonRow(cash: cash, values: [.seven, .eight, .nine])
+                    ButtonRow(cash: cash, values: [.decimal, .zero, .backspace])
                 }
                 .padding(.bottom, 8)
             }
@@ -38,29 +38,29 @@ struct ContentView: View {
         formatter.numberStyle = .currency
         formatter.usesGroupingSeparator = true
 
-        return formatter.string(from: value as NSDecimalNumber) ?? ""
+        return formatter.string(from: value as NSNumber) ?? "invalid input"
     }
 }
 
 struct ButtonRow: View {
-    let manager: CorollariiManager
+    let cash: CashMachine
     let values: [CalculatorCharacters]
 
     var body: some View {
         HStack {
             ForEach(values, id: \.self) { value in
-                ButtonView(manager: manager, value: value)
+                ButtonView(cash: cash, value: value)
             }
         }.padding([.leading, .trailing])
     }
 }
 
 struct ButtonView: View {
-    let manager: CorollariiManager
+    let cash: CashMachine
     let value: CalculatorCharacters
 
     var body: some View {
-        Button(action: { manager.keypress(key: value) }, label: {
+        Button(action: { cash.keypress(key: value) }, label: {
             Color.clear
                 .frame(maxHeight: 45)
                 .overlay(RoundedRectangle(cornerRadius: 12)
