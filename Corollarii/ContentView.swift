@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var cash = CashMachine()
+    @StateObject var cash = CashMachine()
 
     var body: some View {
         NavigationView {
