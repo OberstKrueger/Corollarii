@@ -27,7 +27,7 @@ class CashMachine: ObservableObject {
     }
 
     /// Current input state.
-    var state: CashState = .dollars
+    @Published var state: CashState = .dollars
 
     /// Tip calculated based on current percentage.
     var calculatedTip: Decimal {
@@ -93,12 +93,11 @@ class CashMachine: ObservableObject {
         case (.number(let number), .centsOne):
             input += number / 100
             state = .centsTwo
-        case (.number(let number), .centsTwo):
+        case (.number(_), .centsTwo):
             break // Nothing does happen, because nothing should happen.
         case (.number(let number), .dollars):
             input = (input * 10) + number
         case (.backspace, .centsZero):
-            input = input // Triggers view update.
             state = .dollars
         case (.backspace, .centsOne):
             var rounded = Decimal()
@@ -115,14 +114,11 @@ class CashMachine: ObservableObject {
             var result = Decimal()
             NSDecimalRound(&result, &reduced, 0, .down)
             input = result
-        case (.decimal, .centsZero):
-            break // Nothing does happen, because nothing should happen.
-        case (.decimal, .centsOne):
-            break // Nothing does happen, because nothing should happen.
-        case (.decimal, .centsTwo):
+        case (.decimal, .centsZero),
+              (.decimal, .centsOne),
+              (.decimal, .centsTwo):
             break // Nothing does happen, because nothing should happen.
         case (.decimal, .dollars):
-            input = input // Triggers view update.
             state = .centsZero
         }
     }
