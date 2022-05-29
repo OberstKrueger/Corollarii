@@ -12,7 +12,7 @@ struct ContentView: View {
                         Text(cash.displayValue)
                     }
                     Section {
-                        Stepper("Tip Percent: \(cash.percentage)", value: $cash.percentage, in: 1...100)
+                        Stepper("Tip Percent: \(cash.percentage)", value: $cash.percentage, in: 0...100)
                         Toggle("Round Up", isOn: $cash.round)
                     }
                     Section {
