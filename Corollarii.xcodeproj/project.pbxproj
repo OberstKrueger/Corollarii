@@ -8,16 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		562FE5A6276C298100D841B1 /* CashMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FE5A5276C298100D841B1 /* CashMachine.swift */; };
-		562FE5A8276C2A1400D841B1 /* CashDollarsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FE5A7276C2A1400D841B1 /* CashDollarsState.swift */; };
-		562FE5AA276C2A4D00D841B1 /* CashCentsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562FE5A9276C2A4D00D841B1 /* CashCentsState.swift */; };
 		5660924D2692A53E009A6EF0 /* CorollariiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660924C2692A53E009A6EF0 /* CorollariiApp.swift */; };
 		5660924F2692A53E009A6EF0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660924E2692A53E009A6EF0 /* ContentView.swift */; };
 		566092512692A541009A6EF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 566092502692A541009A6EF0 /* Assets.xcassets */; };
 		566092542692A541009A6EF0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 566092532692A541009A6EF0 /* Preview Assets.xcassets */; };
 		5660925F2692A541009A6EF0 /* CorollariiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660925E2692A541009A6EF0 /* CorollariiTests.swift */; };
 		5660926A2692A541009A6EF0 /* CorollariiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566092692692A541009A6EF0 /* CorollariiUITests.swift */; };
+		56849F2228435B4200D9B50E /* CashState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56849F2128435B4200D9B50E /* CashState.swift */; };
 		56C34F9F26C03AEF00987445 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C34F9E26C03AEF00987445 /* Defaults.swift */; };
-		56F310E226B2CAD500012693 /* CalculatorCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F310E126B2CAD500012693 /* CalculatorCharacters.swift */; };
+		56F310E226B2CAD500012693 /* CalculatorCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F310E126B2CAD500012693 /* CalculatorCharacter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +38,6 @@
 
 /* Begin PBXFileReference section */
 		562FE5A5276C298100D841B1 /* CashMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashMachine.swift; sourceTree = "<group>"; };
-		562FE5A7276C2A1400D841B1 /* CashDollarsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashDollarsState.swift; sourceTree = "<group>"; };
-		562FE5A9276C2A4D00D841B1 /* CashCentsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashCentsState.swift; sourceTree = "<group>"; };
 		566092492692A53E009A6EF0 /* Corollarii.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Corollarii.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5660924C2692A53E009A6EF0 /* CorollariiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorollariiApp.swift; sourceTree = "<group>"; };
 		5660924E2692A53E009A6EF0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,10 +50,11 @@
 		566092652692A541009A6EF0 /* CorollariiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorollariiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		566092692692A541009A6EF0 /* CorollariiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorollariiUITests.swift; sourceTree = "<group>"; };
 		5660926B2692A541009A6EF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		56849F2128435B4200D9B50E /* CashState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashState.swift; sourceTree = "<group>"; };
 		56B3837726C0D03B00624B7A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		56B3837826C0D05100624B7A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		56C34F9E26C03AEF00987445 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
-		56F310E126B2CAD500012693 /* CalculatorCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCharacters.swift; sourceTree = "<group>"; };
+		56F310E126B2CAD500012693 /* CalculatorCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCharacter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,10 +109,9 @@
 			children = (
 				5660924C2692A53E009A6EF0 /* CorollariiApp.swift */,
 				5660924E2692A53E009A6EF0 /* ContentView.swift */,
-				562FE5A9276C2A4D00D841B1 /* CashCentsState.swift */,
-				562FE5A7276C2A1400D841B1 /* CashDollarsState.swift */,
 				562FE5A5276C298100D841B1 /* CashMachine.swift */,
-				56F310E126B2CAD500012693 /* CalculatorCharacters.swift */,
+				56849F2128435B4200D9B50E /* CashState.swift */,
+				56F310E126B2CAD500012693 /* CalculatorCharacter.swift */,
 				56C34F9E26C03AEF00987445 /* Defaults.swift */,
 				566092502692A541009A6EF0 /* Assets.xcassets */,
 				566092552692A541009A6EF0 /* Info.plist */,
@@ -278,12 +275,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				562FE5A8276C2A1400D841B1 /* CashDollarsState.swift in Sources */,
 				562FE5A6276C298100D841B1 /* CashMachine.swift in Sources */,
-				562FE5AA276C2A4D00D841B1 /* CashCentsState.swift in Sources */,
+				56849F2228435B4200D9B50E /* CashState.swift in Sources */,
 				5660924F2692A53E009A6EF0 /* ContentView.swift in Sources */,
 				56C34F9F26C03AEF00987445 /* Defaults.swift in Sources */,
-				56F310E226B2CAD500012693 /* CalculatorCharacters.swift in Sources */,
+				56F310E226B2CAD500012693 /* CalculatorCharacter.swift in Sources */,
 				5660924D2692A53E009A6EF0 /* CorollariiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

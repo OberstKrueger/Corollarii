@@ -21,10 +21,10 @@ struct ContentView: View {
                     }
                 }
                 VStack {
-                    ButtonRow(cash: cash, values: [.one, .two, .three])
-                    ButtonRow(cash: cash, values: [.four, .five, .six])
-                    ButtonRow(cash: cash, values: [.seven, .eight, .nine])
-                    ButtonRow(cash: cash, values: [.decimal, .zero, .backspace])
+                    ButtonRow(cash: cash, values: [.number(1), .number(2), .number(3)])
+                    ButtonRow(cash: cash, values: [.number(4), .number(5), .number(6)])
+                    ButtonRow(cash: cash, values: [.number(7), .number(8), .number(9)])
+                    ButtonRow(cash: cash, values: [.decimal, .number(0), .backspace])
                 }
                 .padding(.bottom, 8)
             }
@@ -44,11 +44,11 @@ struct ContentView: View {
 
 struct ButtonRow: View {
     let cash: CashMachine
-    let values: [CalculatorCharacters]
+    let values: [CalculatorCharacter]
 
     var body: some View {
         HStack {
-            ForEach(values, id: \.self) { value in
+            ForEach(values, id: \.characterValue) { value in
                 ButtonView(cash: cash, value: value)
             }
         }.padding([.leading, .trailing])
@@ -57,7 +57,7 @@ struct ButtonRow: View {
 
 struct ButtonView: View {
     let cash: CashMachine
-    let value: CalculatorCharacters
+    let value: CalculatorCharacter
 
     var body: some View {
         Button(action: { cash.keypress(key: value) }, label: {
@@ -65,7 +65,7 @@ struct ButtonView: View {
                 .frame(maxHeight: 44)
                 .overlay(RoundedRectangle(cornerRadius: 20)
                             .stroke())
-                .overlay(Text(value.rawValue).font(.headline))
+                .overlay(Text(value.characterValue).font(.headline))
         })
     }
 }

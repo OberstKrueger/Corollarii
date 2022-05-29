@@ -1,16 +1,9 @@
 import GameplayKit
 
-class CashMachine: GKStateMachine, ObservableObject {
+class CashMachine: ObservableObject {
     init() {
-        let cents = CashCentsState()
-        let dollars = CashDollarsState()
-
         percentage = defaults.percentage
         round = defaults.round
-
-        super.init(states: [cents, dollars])
-
-        _ = self.enter(CashDollarsState.self)
     }
 
     /// User defaults.
@@ -32,6 +25,9 @@ class CashMachine: GKStateMachine, ObservableObject {
             defaults.round = round
         }
     }
+
+    /// Current input state.
+    var state: CashState = .dollars
 
     /// Tip calculated based on current percentage.
     var calculatedTip: Decimal {
@@ -65,88 +61,69 @@ class CashMachine: GKStateMachine, ObservableObject {
 
     /// The displayed value for the user input field.
     var displayValue: String {
-        switch currentState {
-        case let state as CashCentsState:
-            switch state.position {
-            case .zero:
-                return "\(input.description)."
-            case .one:
-                let formatter = NumberFormatter()
+        switch state {
+        case .centsZero:
+            return "\(input.description)."
+        case .centsOne:
+            let formatter = NumberFormatter()
 
-                formatter.minimumIntegerDigits = 1
-                formatter.minimumFractionDigits = 1
-                formatter.maximumFractionDigits = 1
+            formatter.minimumIntegerDigits = 1
+            formatter.minimumFractionDigits = 1
+            formatter.maximumFractionDigits = 1
 
-                return formatter.string(from: input as NSNumber)!
-            case .two:
-                let formatter = NumberFormatter()
+            return formatter.string(from: input as NSNumber)!
+        case .centsTwo:
+            let formatter = NumberFormatter()
 
-                formatter.minimumIntegerDigits = 1
-                formatter.minimumFractionDigits = 2
-                formatter.maximumFractionDigits = 2
+            formatter.minimumIntegerDigits = 1
+            formatter.minimumFractionDigits = 2
+            formatter.maximumFractionDigits = 2
 
-                return formatter.string(from: input as NSNumber)!
-            }
-        case is CashDollarsState:
+            return formatter.string(from: input as NSNumber)!
+        case .dollars:
             return input.description
-        default:
-            return "invalid input: \(input.description)"
         }
     }
 
-    func keypress(key: CalculatorCharacters) {
-        switch currentState {
-        case let state as CashCentsState:
-            switch key {
-            case .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .zero:
-                switch state.position {
-                case .zero:
-                    input += (Decimal(string: key.rawValue) ?? 0) / 10
-                    state.increment()
-                case .one:
-                    input += (Decimal(string: key.rawValue) ?? 0) / 100
-                    state.increment()
-                case .two:
-                    break
-                }
-            case .backspace:
-                var rounded = Decimal()
-
-                switch state.position {
-                case .zero:
-                    state.decrement()
-                    input = input // Triggers view update.
-                case .one:
-                    state.decrement()
-                    NSDecimalRound(&rounded, &input, 0, .bankers)
-                    input = rounded
-                case .two:
-                    state.decrement()
-                    NSDecimalRound(&rounded, &input, 1, .bankers)
-                    input = rounded
-                }
-            case .decimal:
-                break // Nothing does happen, because nothing should happen.
-            }
-        case is CashDollarsState:
-            switch key {
-            case .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
-                input = (input * 10) + (Decimal(string: key.rawValue) ?? 0)
-            case .zero:
-                input *= 10
-            case .backspace:
-                var reduced = input / 10
-                var result = Decimal()
-
-                NSDecimalRound(&result, &reduced, 0, .down)
-
-                input = result
-            case .decimal:
-                enter(CashCentsState.self)
-                input = input // Triggers view update.
-            }
-        default:
-            break
+    func keypress(key: CalculatorCharacter) {
+        switch (key, state) {
+        case (.number(let number), .centsZero):
+            input += number / 10
+            state = .centsOne
+        case (.number(let number), .centsOne):
+            input += number / 100
+            state = .centsTwo
+        case (.number(let number), .centsTwo):
+            break // Nothing does happen, because nothing should happen.
+        case (.number(let number), .dollars):
+            input = (input * 10) + number
+        case (.backspace, .centsZero):
+            input = input // Triggers view update.
+            state = .dollars
+        case (.backspace, .centsOne):
+            var rounded = Decimal()
+            NSDecimalRound(&rounded, &input, 0, .down)
+            input = rounded
+            state = .centsZero
+        case (.backspace, .centsTwo):
+            var rounded = Decimal()
+            NSDecimalRound(&rounded, &input, 1, .down)
+            input = rounded
+            state = .centsOne
+        case (.backspace, .dollars):
+            var reduced = input / 10
+            var result = Decimal()
+            NSDecimalRound(&result, &reduced, 0, .down)
+            input = result
+        case (.decimal, .centsZero):
+            break // Nothing does happen, because nothing should happen.
+        case (.decimal, .centsOne):
+            break // Nothing does happen, because nothing should happen.
+        case (.decimal, .centsTwo):
+            break // Nothing does happen, because nothing should happen.
+        case (.decimal, .dollars):
+            input = input // Triggers view update.
+            state = .centsZero
         }
     }
 }
